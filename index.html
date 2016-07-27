@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Rosemary Sumitani : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Rosemary Sumitani</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/sumitani">View on GitHub</a>
+
+          <h1 id="project_title">Rosemary Sumitani</h1>
+          <h2 id="project_tagline"></h2>
+
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="estudos-sobre-windows-installer-e-wix" class="anchor" href="#estudos-sobre-windows-installer-e-wix" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Estudos sobre Windows Installer e Wix</h1>
+
+<h2>
+<a id="open-source" class="anchor" href="#open-source" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Open Source</h2>
+
+<p>Quem não sabe, a Microsoft anda vem entrando nessa onda de código aberto e lançam alguns projetos como o Wix (gerador de instaladores com formato Windows Installer). </p>
+
+<h2>
+<a id="wix" class="anchor" href="#wix" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wix</h2>
+
+<p>O projeto foi inicialmente feito, pensando no Office. Hoje suporta qualquer customização.</p>
+
+<p>O Windows Installer contém uma biblioteca de instalação e gerenciamento de componentes, para conseguir controlar os arquivos instalados. O Wix entra na jogada para fazer a interface com esta biblioteca através de declarações XML.</p>
+
+<h2>
+<a id="requerimento" class="anchor" href="#requerimento" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requerimento</h2>
+
+<p>É um sistema Windows, não funciona no Linux. Quem sabe no futuro.</p>
+
+<p>Antes de começar, para conseguir trabalhar de forma razoável com os pacotes do Windows Installer, o mínimo requerido em sistemas operacionais é o Windows XP (com Service Pack 3), em termos de quantidade de usuários ativos com este sistema é misterioso (um exemplo interessante de requerimento mínimo em sistema operacional é o Android, eles tem um gráfico representando usuários ativos com o sistema deles). Voltando ao Windows, um dia foi o NT, outra o 2000 e agora é a vez do XP.</p>
+
+<p>Não quer dizer que um instalador simples não irá funcionar no Windows 2000, o requerimento serve para trabalhar com o sistema de patches do Windows Installer, chamados MSP. Consiste basicamente em um delta binário da versão antiga para a nova, economizando uns bons megas para serem baixados. Ainda existe conexão ruim neste mundo.</p>
+
+<h2>
+<a id="como-fazer" class="anchor" href="#como-fazer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Como fazer?</h2>
+
+<p>O tutorial do <a href="https://www.firegiant.com/wix/tutorial/">site</a> da Firegiant é detalhada, para conseguir gerar um pequeno instalador e fazer algumas brincadeiras (instalar serviços e criar pastas no Arquivos de Programas) é bem explicativo seguindo o passo a passo, ensina inclusive a geração de patches.</p>
+
+<h2>
+<a id="estruturas-e-nomes-estranhos" class="anchor" href="#estruturas-e-nomes-estranhos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Estruturas e nomes estranhos</h2>
+
+<p>Com o XML, além das declarações e atributos, também é usado <em>GUID</em> para cada componente (o componente é o arquivo que será instalado). Também é usado <em>GUID</em> no identificador do produto e no identificador de atualização.</p>
+
+<p>Os componentes podem ser agrupados e também organizados por funcionalidade (<em>feature</em>).</p>
+
+<p>Podemos ter vários arquivos wxs, wxi, wxl para gerar um instalador.</p>
+
+<p>O TARGETDIR é onde estão os arquivos para montar o instalador, toma como ponto de partida o local do projeto que seria o SourceDir (isto é fixo).</p>
+
+<p>Caso queira criar uma pasta vazia, crie um componente vazio com a declaração de <em>CreateFolder</em>.</p>
+
+<p>Se for instalar os arquivos em uma estrutura fora do padrão dos programas do Windows, será necessário o uso do GUID para o componente de forma estática. Caso use as estruturas padrões (Arquivos de Programas, AppData, etc.) pode se usar o gerador automático. O Wix tem o Heat.exe que auxilia na coleta de componentes e gera os arquivos wxs automaticamente.</p>
+
+<h2>
+<a id="versionamento" class="anchor" href="#versionamento" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Versionamento</h2>
+
+<p>Além dos patches, apesar de existir a forma tradicional de atualizar os arquivos pelo <em>minor</em>, os próprios desenvolvedores sugerem o uso do <em>MajorVersion</em>, não que seja obrigatório incrementar os projetos pelo Major (1.0.0.0 para 2.0.0.0), mas sim atualizar o sistema como se o pacote antigo fosse um instalador totalmente diferente, assim o sistema detecta a versão nova, desinstala a antiga e instala a nova.</p>
+
+<p>Isto implica em ter um identificador de produto diferente para cada instalador gerado, porém o identificador de atualização sempre manterá o mesmo. Para gerar automaticamente o GUID para o identificador do produto somente insira um asterisco no campo <em>Id</em>.</p>
+
+<h2>
+<a id="sem-telas" class="anchor" href="#sem-telas" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sem telas?</h2>
+
+<p>Uma vez com estas partes definidas é possível também utilizar um modelo para as telas de instalação, simples de serem chamadas (caso não tenha customizações em mente).</p>
+
+<p>A ideia é que se o instalador funciona silenciosamente bem, com a interface gráfica funcionará da mesma forma.</p>
+
+<h2>
+<a id="propriedades-e-peculiaridades" class="anchor" href="#propriedades-e-peculiaridades" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Propriedades e peculiaridades</h2>
+
+<p>Se o instalador necessita de alguma informação na forma silenciosa, ela pode ser passada via linha de comando pela <em>Property</em>.</p>
+
+<p>Inserir muitas <em>CustomAction</em> (ações customizadas por DLL ou chamada de executável / script) dentro do instalador que modifiquem muito o sistema não é interessante, já que faz com que o sistema perca a capacidade de reverter estas ações automaticamente.</p>
+
+<p><a href="http://wixtoolset.org/documentation/">Documentação da versão 3.x</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
