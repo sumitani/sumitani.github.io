@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bloco de notas</title>
+    <description>Programacao e tecnologia de outro blog qualquer no planeta.
+</description>
+    <link>http://sumitani.github.io/</link>
+    <atom:link href="http://sumitani.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Mon, 01 Aug 2016 01:32:20 +0000</pubDate>
+    <lastBuildDate>Mon, 01 Aug 2016 01:32:20 +0000</lastBuildDate>
+    <generator>Jekyll v3.2.0</generator>
+    
+      <item>
+        <title>Estudos sobre Windows Installer e Wix</title>
+        <description>&lt;h2 id=&quot;open-source&quot;&gt;Open Source&lt;/h2&gt;
+
+&lt;p&gt;Quem não sabe, a Microsoft anda nessa onda de código aberto com alguns projetos como o Wix (gerador de instaladores com formato Windows Installer).&lt;/p&gt;
+
+&lt;h2 id=&quot;wix&quot;&gt;Wix&lt;/h2&gt;
+
+&lt;p&gt;O projeto foi inicialmente feito pensando no Office. Hoje suporta qualquer customização.&lt;/p&gt;
+
+&lt;p&gt;O Windows Installer contém uma biblioteca de instalação e gerenciamento de componentes para controlar os arquivos instalados. O Wix entra na jogada para fazer a interface com esta biblioteca através de declarações XML.&lt;/p&gt;
+
+&lt;h2 id=&quot;requerimento&quot;&gt;Requerimento&lt;/h2&gt;
+
+&lt;p&gt;Ter um Windows, já que da forma apresentada ainda não é possível gerar o MSI pelo Linux. Quem sabe no futuro.&lt;/p&gt;
+
+&lt;p&gt;Antes de começar, para conseguir trabalhar de forma razovel com os pacotes do Windows Installer, o mínimo requerido em sistemas operacionais é o Windows XP (com Service Pack 3), em termos de quantidade de usuários ativos com este sistema é misterioso (um exemplo interessante de requerimento mínimo em sistema operacional é o Android, eles tem um gráfico representando usuários com o sistema deles). Voltando ao Windows, um dia foi o NT, outra o 2000 e agora é a vez do XP.&lt;/p&gt;
+
+&lt;p&gt;Não quer dizer que um instalador simples não irá funcionar no Windows 2000, o requerimento serve para delimitar o que será usado de funcionalidade no MSI. Este limite do Windows XP permite trabalhar com o sistema de patches do Windows Installer, chamados MSP. Consiste basicamente em um delta binário da versão antiga para a nova, economizando uns bons megas para serem baixados. Ainda existe conexão ruim neste mundo.&lt;/p&gt;
+
+&lt;h2 id=&quot;como-fazer&quot;&gt;Como fazer?&lt;/h2&gt;
+
+&lt;p&gt;O tutorial do &lt;a href=&quot;https://www.firegiant.com/wix/tutorial/&quot;&gt;site&lt;/a&gt; da Firegiant é detalhada, para conseguir gerar um pequeno instalador e fazer algumas brincadeiras (instalar serviços e criar pastas no Arquivos de Programas)  bem explicativo seguindo o passo a passo, ensina inclusive a geração de patches.&lt;/p&gt;
+
+&lt;h2 id=&quot;estruturas-e-nomes-estranhos&quot;&gt;Estruturas e nomes estranhos&lt;/h2&gt;
+
+&lt;p&gt;Com o XML, além das declarações e atributos, também é usado &lt;em&gt;GUID&lt;/em&gt; para cada componente (o componente é o arquivo que ser instalado). Também é usado &lt;em&gt;GUID&lt;/em&gt; no identificador do produto e no identificador de atualização.&lt;/p&gt;
+
+&lt;p&gt;Os componentes podem ser agrupados e também organizados por funcionalidade (&lt;em&gt;feature&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;Podemos ter vários arquivos wxs, wxi, wxl para gerar um instalador.&lt;/p&gt;
+
+&lt;p&gt;O TARGETDIR é o local onde estão os arquivos para montar o instalador, toma como ponto de partida o local do projeto que seria o SourceDir (isto é fixo).&lt;/p&gt;
+
+&lt;p&gt;Caso queira criar uma pasta vazia, crie um componente vazio com a declaração de &lt;em&gt;CreateFolder&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Se for instalar os arquivos em uma estrutura fora do padrão dos programas do Windows, ser necessário o uso do GUID para cada componente de forma estática. Caso use as estruturas padres (Arquivos de Programas, AppData, etc.) pode se usar o gerador automático. O Wix tem o Heat.exe que auxilia na coleta de componentes e gera os arquivos wxs automaticamente.&lt;/p&gt;
+
+&lt;h2 id=&quot;versionamento&quot;&gt;Versionamento&lt;/h2&gt;
+
+&lt;p&gt;Além dos patches, apesar de existir a forma tradicional de atualizar os arquivos pelo &lt;em&gt;minor&lt;/em&gt;, os próprios desenvolvedores sugerem o uso do &lt;em&gt;MajorVersion&lt;/em&gt;, não que seja obrigatório incrementar os projetos pelo Major (1.0.0.0 para 2.0.0.0), mas sim atualizar o sistema como se o pacote antigo fosse um instalador totalmente diferente, assim o sistema detecta a versão nova, desinstala a antiga e instala a nova.&lt;/p&gt;
+
+&lt;p&gt;Isto implica em ter um identificador de produto diferente para cada instalador gerado, porém o identificador de atualização sempre manter o mesmo. Para gerar automaticamente o GUID do identificador do produto somente insira um asterisco no campo &lt;em&gt;Id&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;sem-telas&quot;&gt;Sem telas?&lt;/h2&gt;
+
+&lt;p&gt;Uma vez com estas partes definidas é possível tambm utilizar um modelo para as telas de instalação, simples de serem chamadas (caso não tenha customizações em mente).&lt;/p&gt;
+
+&lt;p&gt;A ideia é que se o instalador funciona silenciosamente bem, com a interface gráfica funcionar da mesma forma, afinal de contas deve ser somente uma interface.&lt;/p&gt;
+
+&lt;h2 id=&quot;propriedades-e-peculiaridades&quot;&gt;Propriedades e peculiaridades&lt;/h2&gt;
+
+&lt;p&gt;Se o instalador necessita de alguma informação na forma silenciosa, ela pode ser passada via linha de comando pela &lt;em&gt;Property&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Inserir muitas &lt;em&gt;CustomAction&lt;/em&gt; (ações customizadas por DLL ou chamada de executável / script) que modifiquem muito o sistema não é bom, pelo fato do sistema perder a capacidade de reverter estas ações automaticamente, conhecido como &lt;em&gt;rollback&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://wixtoolset.org/documentation/&quot;&gt;Documentação da versão 3.x&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 26 Jul 2016 22:59:07 +0000</pubDate>
+        <link>http://sumitani.github.io/windows/2016/07/26/windows-installer.html</link>
+        <guid isPermaLink="true">http://sumitani.github.io/windows/2016/07/26/windows-installer.html</guid>
+        
+        <category>windows</category>
+        
+        <category>wix</category>
+        
+        <category>msi</category>
+        
+        
+        <category>windows</category>
+        
+      </item>
+    
+  </channel>
+</rss>

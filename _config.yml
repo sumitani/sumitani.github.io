@@ -1,0 +1,17 @@
+# Site settings
+title: Bloco de notas
+description: > # this means to ignore newlines until "baseurl:"
+  Programacao e tecnologia de outro blog qualquer no planeta.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://sumitani.github.io" # the base hostname & protocol for your site
+twitter_username: rose_sumitani
+github_username:  sumitani
+
+# Build settings
+markdown: kramdown
+
+paginate: 4
+
+author: Rosemary Sumitani
+
+gems: [jekyll-paginate]
