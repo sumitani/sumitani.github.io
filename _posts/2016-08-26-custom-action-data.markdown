@@ -4,7 +4,6 @@ title:  "Custom Action Data"
 date:   2016-08-26 00:08:52
 categories: windows
 tags: windows wix msi customaction
-image: /images/pic02.jpg
 ---
 
 ## Custom Action

@@ -4,7 +4,6 @@ title:  "Estudos sobre Windows Installer e Wix"
 date:   2016-07-26 22:59:07
 categories: windows
 tags: windows wix msi
-image: /images/pic02.jpg
 ---
 ## Open Source
 
