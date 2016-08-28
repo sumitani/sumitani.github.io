@@ -7,6 +7,7 @@ url: "http://sumitani.github.io" # the base hostname & protocol for your site
 twitter_username: rose_sumitani
 github_username:  sumitani
 
+google_analytics: UA-63888347-2
 # Build settings
 markdown: kramdown
 
