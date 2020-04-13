@@ -16,23 +16,27 @@ A seguir as notas sobre as atividades propostas nos hands-on labs.
 
 ## Formatação
 
-Nos comandos do Docker, foi possível passar o parâmetro ``--format '{{json .}}' | jq`` para conseguir exibir a saída da informação em formato _JSON_. O ``| jq`` serve para embelezar a saída com novas linhas e tabulações.
+Nos comandos do Docker, foi possível passar o parâmetro {% raw %} ``--format '{{json .}}' | jq`` {% endraw %}para conseguir exibir a saída da informação em formato _JSON_. O ``| jq`` serve para embelezar a saída com novas linhas e tabulações.
 
 Para ter uma noção do que passar para o parâmetro, use o modelo [Golang de formatação (em inglês)](https://golang.org/pkg/html/template/) como referência para montar a saída.
 
 Alguns exemplos de formatação (são as respostas de algumas das atividades propostas no lab de aniversário):
 
 Tabela:
+{% raw %}
 ```
 'table {{.CPUPerc}}\t{{.MemPerc}}'
 ```
+{% endraw %}
 
 Uso de iteradores:
+{% raw %}
 ```
 docker container inspect --format '{{range .Config.Env}}{{with split . "="}}{{if eq (index . 0)"PATH"}}{{with split ( index . 1 ) ":"}}{{range .}}{{printf "%s\n" .}}{{end}}{{end}}{{end}}{{end}}{{end}}' $(docker container ls -lq)
 ```
+{% endraw %}
 
-Quando utilizado iteradores, a quantidade de ``{{end}}`` não agrada muito, mas funciona.
+Quando utilizado iteradores, a quantidade de {% raw %} ``{{end}}`` {% endraw %} não agrada muito, mas funciona.
 
 ## Criação de contexto
 
