@@ -2,7 +2,7 @@
 title: Bloco de notas
 url: https://sumitani.github.io
 paginate: 3
-baseurl: "https://sumitani.github.io"
+baseurl: ""
 permalink: pretty
 
 # Gems
