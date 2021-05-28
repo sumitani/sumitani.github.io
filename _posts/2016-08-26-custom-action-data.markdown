@@ -6,15 +6,15 @@ categories: windows
 tags: windows wix msi customaction
 ---
 
-## Custom Action
+### Custom Action
 
 Uma custom action é uma ação feita geralmente em código a parte do XML do WiX, seja ele em C++, C# e o que der para gerar uma DLL. O uso de uma custom action pode ser para realizar verificações customizadas no qual o instalador não teria capacidade de realizar forma nativa.
 
-## Primeira e segunda fase de instalação
+### Primeira e segunda fase de instalação
 
 O ideal é fazer a custom actions na primeira fase da instalação, este seria entendido desde o começo da instalação até o ponto antes de clicar em instalar. Quando a instalação começa a ser realizada (cópia de arquivos, instalação de serviços e controladores de dispositivos), já estamos na segunda fase da instalação. Neste ponto algumas propriedades já não estão mais disponíveis para uso.
 
-## Custom Action Data
+### Custom Action Data
 
 Apesar de não ser recomendado, na segunda fase da instalação é que entra a questão do Custom Action Data. Como as propriedades não estão disponíveis, como ter acesso a elas?
 
@@ -38,7 +38,7 @@ Pode se reparar que apesar delas estarem juntas, uma ação é executada na prim
 
 Dentro da custom action CriarProcessoMaroto, como conseguir acessar o dado passado pela DadosDoProcessoMaroto?
 
-## Acessando os valores na DLL
+### Acessando os valores na DLL
 
 Se estiver tudo bem, a custom action CriarProcessoMaroto terá acesso a uma propriedade chamada CustomActionData, onde estará o conteúdo da propriedade VALORESIMPORTANTES, vale ressaltar que isto é só uma cópia, não uma referência.
 
