@@ -4,7 +4,7 @@ title: Sobre
 ---
 
 <p class="message">
-  Só uma programadora por aí. 
+  SÃ³ uma programadora por aÃ­.
 </p>
 
 
