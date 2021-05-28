@@ -1,18 +1,44 @@
-# Site settings
+# Setup
 title: Bloco de notas
-description: > # this means to ignore newlines until "baseurl:"
-  Programacao e tecnologia de outro blog qualquer no planeta.
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://sumitani.github.io" # the base hostname & protocol for your site
-twitter_username: rose_sumitani
-github_username:  sumitani
+url: https://sumitani.github.io
+paginate: 3
+baseurl: "https://sumitani.github.io"
+permalink: pretty
 
-google_analytics: UA-63888347-2
-# Build settings
-markdown: kramdown
+# Gems
+plugins:
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-seo-tag
 
-paginate: 4
+# Optimize Jekyll
+exclude:
+  - .editorconfig
+  - .git
+  - .jekyll-cache
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE.md
+  - README.md
 
-author: Rosemary Sumitani
+sass:
+  sass_dir: _sass
+  style: :compressed
 
-gems: [jekyll-paginate]
+# Options
+
+# Replace this value and uncomment to enable Google Analytics tracking
+ga_analytics: UA-63888347-2
+
+# Specify the author for blog posts
+author:
+  name: Rosemary Sumitani
+  url: https://twitter.com/rose_sumitani
+
+# Custom vars
+version: 0.0.1
+
+# Navbar page list
+nav:
+  - title: Blog
+    url: /archive
