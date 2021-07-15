@@ -10,3 +10,4 @@ Entrei no projeto para contribuir algo no vscode, achei então este bug:
 https://github.com/microsoft/vscode-pull-request-github/issues/2299
 
 Vamos ver se consigo simular. Irei usar este post para fazer os testes.
+Primeiro apareceu o login para fazer apesar da notificação não funcionou nem para aparecer o pull request.. :(
